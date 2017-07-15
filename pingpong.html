@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<div id="one">
+	
+</div>
+<div id ="lbar">
+</div>
+
+ 
+	 
+
+<div id ="rbar">
+
+	
+
+</div>
+
+<style type="text/css">
+	* {
+		padding: 0;
+		margin: 0;
+	}
+	body {background-color: #342e3d;
+		
+	}
+	#one{
+		position: fixed;
+		height: 50px;
+		width: 50px;
+		background-color: red;
+		border-radius: 50%;
+	}
+	#lbar{
+		position: fixed;
+		height: 100px;
+		width: 20px;
+		background-color: green;
+
+	}
+
+	#rbar{
+		position: fixed;
+		height: 100px;
+		width: 20px;
+		background-color: blue;
+
+
+	}
+	
+
+	body{
+		height: 100vh;
+		width: 100vw;
+	}
+</style>
+
+<script type="text/javascript">
+	
+function getEbI(id){
+	return document.getElementById(id);
+}
+
+var element = getEbI('one');
+
+var llement = getEbI('lbar');
+
+var rlement = getEbI('rbar');
+
+
+element.style.top = '300px';
+element.style.left = document.body.clientWidth/2+'px';
+
+
+
+llement.style.top='0px';
+llement.style.left='0px';
+
+rlement.style.top= document.body.clientHeight-100+'px';
+rlement.style.right='0px';
+
+var number;
+
+
+function runAway(event){
+	
+	var maxHeight = document.body.clientHeight;
+	var maxWidth = document.body.clientWidth;
+	var newTop = Math.random() * maxHeight ;
+	var newLeft = Math.random() * maxWidth ;
+	
+
+	var oldTop = parseFloat(element.style.top.slice(0,-2));
+	var oldLeft = parseFloat(element.style.left.slice(0,-2));
+
+
+
+	var deltaTop = (newTop - oldTop)/300.0;
+	var deltaLeft = (newLeft - oldLeft)/300.0;
+
+
+   
+
+
+
+
+
+	if(number != null){
+		clearInterval(number);
+	}
+
+	number = setInterval(function(){
+
+
+    var currentTop = parseFloat(element.style.top.slice(0,-2));
+	var currentLeft = parseFloat(element.style.left.slice(0,-2));
+
+
+
+
+	 var leftbarTop =parseFloat(llement.style.top.slice(0,-2));
+    var leftbarRight =parseFloat(llement.style.right.slice(0,-2));
+    var rightbarTop =parseFloat(rlement.style.top.slice(0,-2));
+    var rightbarLeft =parseFloat(rlement.style.left.slice(0,-2));
+	  
+
+
+	if (currentTop <= 0 ){
+	
+		deltaTop = -deltaTop;
+
+     }
+		if((currentTop+50) >= maxHeight){
+	
+		deltaTop = -deltaTop;
+
+	}
+	if(currentLeft+50>=1309){
+		clearInterval(number);
+	}
+
+	if(currentLeft<=0){
+		clearInterval(number);
+	}
+
+   if(currentLeft+50>=1289) {
+   	if((rightbarTop - currentTop <= 50) && (currentTop - rightbarTop <= 100)){
+	deltaLeft=-deltaLeft;
+}
+}
+
+     if(currentLeft<=20){
+     	if((leftbarTop-currentTop <= 50) && (currentTop - leftbarTop <= 100)) {
+	deltaLeft=-deltaLeft;
+}
+}
+
+
+    tempTop = (currentTop + deltaTop) ;
+	tempLeft = (currentLeft + deltaLeft);
+
+
+	
+
+
+	element.style.top = tempTop + 'px';
+	element.style.left = tempLeft + 'px' ;
+
+
+
+	},5);
+
+	// 	console.log(oldTop);
+	// 	console.log(oldLeft);
+
+	// 	console.log(deltaLeft);
+	// 	console.log(deltaTop);
+
+	// for(var i=0; i<100;i++){
+	// 	tempTop =(oldTop + i * deltaTop) ;
+	// 	tempLeft = (oldLeft + i * deltaLeft) 
+	// 	// console.log(tempTop);
+	// 	// console.log(tempLeft);
+
+	// 	element.style.top = tempTop + 'px';
+	//     element.style.left = tempLeft + 'px' ;
+	// }
+
+
+	
+
+}
+
+
+var num;
+function sidebarmoveup(elmt){
+
+
+	
+	if(num != null){
+		clearInterval(num);
+	}
+
+
+	num = setInterval(function(){
+		var delta =30;
+		var currTop = parseFloat(elmt.style.top.slice(0,-2));
+       if(currTop<=0){
+		delta=0;
+	    }
+	    
+         
+         var temTop =  currTop-delta;
+        
+
+		
+         elmt.style.top = temTop + 'px';
+         clearInterval(num);
+
+	
+	
+         },5);
+
+
+
+
+	
+
+
+
+}
+function sidebarmovedown(elmt){
+	if(num != null){
+		clearInterval(num);
+	}
+
+	num = setInterval(function(){
+		var delta =30;
+		var currTop = parseFloat(elmt.style.top.slice(0,-2));
+		if(currTop+100>=678){
+		delta=0;
+	    }
+         
+         var temTop =  currTop+delta;
+         elmt.style.top = temTop + 'px';
+         clearInterval(num);
+         },5);
+
+	 
+
+}
+
+
+
+
+document.onkeydown = function(e) {
+    switch (e.keyCode) {
+    	case 32:
+    	runAway();
+    	break;
+        case 87:
+            sidebarmoveup(llement);
+            break;
+        case 38:
+            sidebarmoveup(rlement);
+            break;
+        case 83:
+            sidebarmovedown(llement);
+            break;
+        case 40:
+            sidebarmovedown(rlement);
+            break;
+    }
+};
+
+
+
+
+
+</script>
+</body>
+
+</html>
